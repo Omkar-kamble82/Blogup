@@ -1,11 +1,12 @@
+import { Login } from "./pages/login";
 
 function App() {
 
   return (
-    <div className="App">
-      Hello
-    </div>
+    <>
+      <Login/>
+    </>
   )
 }
 
-export default App
+export default App;
