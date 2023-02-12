@@ -20,7 +20,7 @@ const getBlog = async (req, res) => {
 }
 
 const createBlog = async (req, res) => {
-    const {title, tags, description} = req.body
+    const {title, tags, description,url} = req.body
     let emptyFields = []
     if (!title) {emptyFields.push('title')}
     if (!tags) {emptyFields.push('tags')}
@@ -30,7 +30,7 @@ const createBlog = async (req, res) => {
     }
     try {
         let blog  = new Blog
-        blog = await Blog.create({ title, tags, description })
+        blog = await Blog.create({ title, tags, description, url })
         res.status(200).json(blog)
     } catch (error) {
         res.status(400).json({ error: error.message })
