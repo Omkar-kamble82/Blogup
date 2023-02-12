@@ -2,11 +2,10 @@ require('dotenv').config()
 
 const express = require('express')
 const mongoose = require('mongoose')
+const blogRoutes  = require('./routes/blogs')
 
-// express app
 const app = express()
 
-// middleware
 app.use(express.json())
 
 app.use((req, res, next) => {
@@ -14,12 +13,13 @@ app.use((req, res, next) => {
     next()
 })
 
-// connect to db
-mongoose.mongoose.set('strictQuery', true).connect(process.env.MONGO_URI)
+app.use('/api/blogs', blogRoutes)
+
+mongoose.set('strictQuery', true).connect(process.env.MONGO_URI)
     .then(() => {
         console.log('connected to database')
         app.listen(process.env.PORT, () => {
-        console.log('listening for requests on port', process.env.PORT)
+            console.log('listening for requests on port', process.env.PORT)
         })
     })
     .catch((err) => {
