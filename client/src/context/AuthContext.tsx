@@ -21,13 +21,12 @@ export const UserContext = createContext({} as UserContextType)
 export const UserContextProvider = ({ children }: UserContextProviderProps) => {
     const [user, setUser] = useState<AuthUser | null>(null)
     useEffect(() => {
-        const user = JSON.parse(localStorage?.getItem('user') || "")
-        if (user) {
-            setUser(user)
+        const user_info = JSON.parse(localStorage.getItem('user')) || null
+        if (user_info) {
+            setUser(user_info)
             }
         }, [])
     
-    console.log('AuthContext state:', user)
     return (
         <UserContext.Provider value={{ user, setUser }}>
         {children}

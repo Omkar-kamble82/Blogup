@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { useEffect, useState } from "react";
-
+import { useContext } from "react";
+import { UserContext } from "../context/AuthContext"
 
 interface blog {
     _id:Number
@@ -14,11 +15,12 @@ interface blog {
 }
 
 export function Home () {
+    const context = useContext(UserContext)
     const [items, setItems] = useState<blog[]>()
     useEffect(() => {
         const fetchWorkouts = async () => {
             const response = await fetch(import.meta.env.VITE_SERVER,{
-                headers: {'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2VhMTY3ODI1NzVhZDU0NGYxY2U4ZGMiLCJpYXQiOjE2NzYyODU1NjAsImV4cCI6MTY3NjU0NDc2MH0.OAWVUhoCJlOE18DvEe33Hxa_yAmiwGQAsWnJL2z4sIo`},
+                headers: {'Authorization': `Bearer ${context.user?.token}`},
             })
             const json = await response.json()
             const data = JSON.stringify(json)

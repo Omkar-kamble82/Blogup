@@ -1,13 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { useState, ChangeEvent } from "react";
-import { ref, uploadBytes, getDownloadURL, listAll, list,} from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL} from "firebase/storage";
 import { storage } from "../firebase";
 import { v4 } from "uuid";
 import { imagedata } from "../constant/data";
+import { useContext } from "react";
+import { UserContext } from "../context/AuthContext"
 
 export function Form () {
     const navigate = useNavigate();
+    const context = useContext(UserContext)
     const [title,setTitle] = useState<String>("")
     const [Tags,setTags] = useState<String>("")
     const [description,setDescription] = useState<String>("")
@@ -23,7 +26,7 @@ export function Form () {
             body: JSON.stringify(blog),
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2VhMTY3ODI1NzVhZDU0NGYxY2U4ZGMiLCJpYXQiOjE2NzYyODU1NjAsImV4cCI6MTY3NjU0NDc2MH0.OAWVUhoCJlOE18DvEe33Hxa_yAmiwGQAsWnJL2z4sIo`,
+                'Authorization': `Bearer ${context.user?.token}`,
             }
         })
         const json = await response.json()
@@ -85,7 +88,7 @@ export function Form () {
                         <label className="text-2xl font-bold text-[#57676f]">Blog </label>
                         <textarea onChange={(e) => setDescription(e.target.value)} className="px-2 placeholder-[#57676f] text-sm mt-2 text-[#57676f] rounded-md py-1 w-full drop-shadow-lg bg-[#283035]" name="password" placeholder="This is a blog...." />
                         <button type="submit" onClick = {submit} className="mt-6 rounded-lg px-4 py-1 font-bold text-[#ffffff] bg-[#c72931] text-lg hover:duration-1000 hover:opacity-80 hover:text-white">Post</button>
-                        {error && <div className="mt-2 text-[#c72931]">{error}</div>}
+                        {error && <div className="mt-2 font-bold text-[#c72931]">{error}</div>}
                     </div>
                 </div>
             </div>
