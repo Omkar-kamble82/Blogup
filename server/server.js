@@ -16,11 +16,6 @@ app.use(
     })
 )
 
-app.use((req, res, next) => {
-    console.log(req.path, req.method)
-    next()
-})
-
 app.use('/api/blogs', blogRoutes)
 app.use('/api/user', userRoutes)
 
