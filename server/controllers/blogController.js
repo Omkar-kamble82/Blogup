@@ -25,6 +25,7 @@ const createBlog = async (req, res) => {
     if (!title) {emptyFields.push('title')}
     if (!tags) {emptyFields.push('tags')}
     if (!description) {emptyFields.push('description')}
+    if (!url) {emptyFields.push('image')}
     if (emptyFields.length > 0) {
         return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
     }
