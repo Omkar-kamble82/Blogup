@@ -67,4 +67,16 @@ export const imagedata = [
         "id":17,
         "url":"/default/16.jpg"
     },
+    {
+        "id":18,
+        "url":"/default/17.jpg"
+    },
+    {
+        "id":19,
+        "url":"/default/18.jpg"
+    },
+    {
+        "id":20,
+        "url":"/default/19.jpg"
+    },
 ]

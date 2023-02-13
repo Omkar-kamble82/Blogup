@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { useState, ChangeEvent } from "react";
 import { ref, uploadBytes, getDownloadURL, listAll, list,} from "firebase/storage";
@@ -7,22 +7,40 @@ import { v4 } from "uuid";
 import { imagedata } from "../constant/data";
 
 export function Form () {
-
+    const navigate = useNavigate();
     const [title,setTitle] = useState<String>("")
-    const [tags,setTags] = useState<String>("")
-    const [blog,setBlog] = useState<String>("")
-    const [imageurl,setImageurl] = useState<string>("")
+    const [Tags,setTags] = useState<String>("")
+    const [description,setDescription] = useState<String>("")
+    const [url,setImageurl] = useState<string>("")
     const [fileuploadtype, setFileUploadType] = useState<number>(0)
+    const [error,setError] = useState<String>("")
+    const [emptyFields,setEmptyFields] = useState<string[]>([])
 
-    const submit = () => {
-        const Tags = tags.split(",")
-        if(imageurl === "") {
-            const number = Math.floor(Math.random() * 16);
-            setImageurl(`/default/${number}.jpg`)
+    const submit = async () => {
+        const tags = Tags.split(",")
+        const blog = {title, tags, url,description}
+        const response = await fetch('http://localhost:3000/api/blogs', {
+            method: 'POST',
+            body: JSON.stringify(blog),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const json = await response.json()
+        if (!response.ok) {
+            setError(json.error)
+            setEmptyFields(json.emptyFields)
         }
-        console.log({title,Tags,blog,imageurl})
+        if (response.ok) {
+            setEmptyFields([])
+            setError("")
+            setTitle('')
+            setTags('')
+            setDescription('')
+            setImageurl('')
+            navigate("/home")
+        }
     }
-    console.log(imageurl)
 
     const upload = (e : ChangeEvent<HTMLInputElement>) => {
         if(e.target.files) {
@@ -51,9 +69,9 @@ export function Form () {
                     <h2 className="text-4xl py-2 font-extrabold text-[#57676f] text-center mt-4">Create a post</h2>
                     <div className="mt-10 px-4">
                         <label className="text-2xl font-bold text-[#57676f]">Title </label>
-                        <input onChange={(e) => setTitle(e.target.value)} className="px-2 mt-2 text-sm text-[#57676f] rounded-md mb-4 lg:mb-6 py-2 w-full drop-shadow-lg bg-[#283035]" type="text" name="title" placeholder="My first blog...." />
+                        <input onChange={(e) => setTitle(e.target.value)} className="px-2 mt-2 text-sm text-[#57676f] rounded-md mb-4 lg:mb-6 py-2 w-full placeholder-[#57676f] drop-shadow-lg bg-[#283035]" type="text" name="title" placeholder="My first blog...." />
                         <label className="text-2xl font-bold text-[#57676f]">Tags </label>
-                        <input onChange={(e) => setTags(e.target.value)} className="px-2 mt-2 mb-2 text-sm text-[#57676f] rounded-md py-2 w-full drop-shadow-lg bg-[#283035]" type="text" name="title" placeholder="Tech, AI, Health, Chat-GPT...." />
+                        <input onChange={(e) => setTags(e.target.value)} className="px-2 mt-2 mb-2 text-sm text-[#57676f] rounded-md py-2 w-full placeholder-[#57676f] drop-shadow-lg bg-[#283035]" type="text" name="title" placeholder="Tech, AI, Health, Chat-GPT...." />
                         <p className="mb-8 text-[#57676f] text-sm font-bold lg:mb-6">*seprate tags with a comma</p>
                         <label className="text-2xl mt-10 font-bold text-[#57676f]">Upload a relevent image </label>
                         <div className="">
@@ -63,12 +81,13 @@ export function Form () {
                         </div> 
                         <div className="mb-4">
                             {fileuploadtype === 1 && <input onChange={upload} className="bg-[#283035] p-4 mt-2 text-[#57676f] rounded-xl" type="file" name="filename" />}
-                            {fileuploadtype === 2 && <input onChange={(e) => {setImageurl(e.target.value)}} className="px-2 mt-2 text-[#8b99a0] rounded-md lg:mb-6 py-2 w-full drop-shadow-lg bg-[#283035]" type="text" name="title" placeholder="https://www.google.com/" />}
+                            {fileuploadtype === 2 && <input onChange={(e) => {setImageurl(e.target.value)}} className="px-2 mt-2 text-[#8b99a0] placeholder-[#57676f] rounded-md lg:mb-6 py-2 w-full drop-shadow-lg bg-[#283035]" type="text" name="title" placeholder="https://www.google.com/" />}
                         </div>  
-                        {imageurl !== "" ? <p className="text-[#05bd05] ml-2 mb-6">Image Uploaded</p> :<p className="text-[#c72931] font-semibold ml-2 mb-6">Image not uploaded</p>}                    
+                        {url !== "" ? <p className="text-[#05bd05] ml-2 mb-6">Image Uploaded</p> :<p className="text-[#c72931] font-semibold ml-2 mb-6">Image not uploaded</p>}                    
                         <label className="text-2xl font-bold text-[#57676f]">Blog </label>
-                        <textarea onChange={(e) => setBlog(e.target.value)} className="px-2 text-sm mt-2 text-[#57676f] rounded-md py-1 w-full drop-shadow-lg bg-[#283035]" name="password" placeholder="This is a blog...." />
-                        <button onClick = {submit} className="mt-6 rounded-lg px-4 py-1 font-bold text-[#ffffff] bg-[#c72931] text-lg hover:duration-1000 hover:opacity-80 hover:text-white">Post</button>
+                        <textarea onChange={(e) => setDescription(e.target.value)} className="px-2 placeholder-[#57676f] text-sm mt-2 text-[#57676f] rounded-md py-1 w-full drop-shadow-lg bg-[#283035]" name="password" placeholder="This is a blog...." />
+                        <button type="submit" onClick = {submit} className="mt-6 rounded-lg px-4 py-1 font-bold text-[#ffffff] bg-[#c72931] text-lg hover:duration-1000 hover:opacity-80 hover:text-white">Post</button>
+                        {error && <div className="mt-2 text-[#c72931]">{error}</div>}
                     </div>
                 </div>
             </div>
