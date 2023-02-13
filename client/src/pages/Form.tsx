@@ -19,7 +19,7 @@ export function Form () {
     const submit = async () => {
         const tags = Tags.split(",")
         const blog = {title, tags, url,description}
-        const response = await fetch('http://localhost:3000/api/blogs', {
+        const response = await fetch(import.meta.env.VITE_SERVER, {
             method: 'POST',
             body: JSON.stringify(blog),
             headers: {
