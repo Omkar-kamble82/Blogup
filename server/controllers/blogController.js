@@ -30,8 +30,9 @@ const createBlog = async (req, res) => {
         return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
     }
     try {
+        const user_id = req.user._id
         let blog  = new Blog
-        blog = await Blog.create({ title, tags, description, url })
+        blog = await Blog.create({ title, tags, description, url, user_id })
         res.status(200).json(blog)
     } catch (error) {
         res.status(400).json({ error: error.message })

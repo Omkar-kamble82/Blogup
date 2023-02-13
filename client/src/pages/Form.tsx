@@ -14,7 +14,6 @@ export function Form () {
     const [url,setImageurl] = useState<string>("")
     const [fileuploadtype, setFileUploadType] = useState<number>(0)
     const [error,setError] = useState<String>("")
-    const [emptyFields,setEmptyFields] = useState<string[]>([])
 
     const submit = async () => {
         const tags = Tags.split(",")
@@ -23,16 +22,15 @@ export function Form () {
             method: 'POST',
             body: JSON.stringify(blog),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2VhMTY3ODI1NzVhZDU0NGYxY2U4ZGMiLCJpYXQiOjE2NzYyODU1NjAsImV4cCI6MTY3NjU0NDc2MH0.OAWVUhoCJlOE18DvEe33Hxa_yAmiwGQAsWnJL2z4sIo`,
             }
         })
         const json = await response.json()
         if (!response.ok) {
             setError(json.error)
-            setEmptyFields(json.emptyFields)
         }
         if (response.ok) {
-            setEmptyFields([])
             setError("")
             setTitle('')
             setTags('')
