@@ -17,3 +17,8 @@
 .text {
     font-family: 'Dancing Script', cursive;
 }
+
+li,a {
+    list-style-type: none;
+    text-decoration: none;
+}
