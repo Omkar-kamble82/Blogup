@@ -41,7 +41,7 @@ export function Navbar ({Postbutton}:Props) {
                     <Link to="/form"><li><p className="p-2 font-bold rounded-xl cursor-pointer text-[#283035] bg-[#57676f]">What's on your mind?</p></li></Link>
                     <Link to={`/${context.user?.username}blogs`}><li><p className="p-2 font-bold text-[#57676f] text-xl">Account</p></li></Link>
                     <div className="bg-[#57676f] w-full h-[3px]"/>
-                    <li onClick={logout}><p className="p-2 font-bold text-[#57676f] text-xl">Logout</p></li>
+                    <li onClick={logout}><p className="p-2 cursor-pointer font-bold text-[#57676f] text-xl">Logout</p></li>
                 </div>
             </div>
         </div>

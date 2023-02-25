@@ -31,13 +31,14 @@ export function Blog () {
                     setUserblog(blog)
                 }
             })
-            if (response.ok) {
-            }
         }
         fetchWorkouts()
     }, [])
     
     return (
-        <h1>Blog : {userblog?.title}</h1>
+        // <h1>Blog : {userblog?.title}</h1>
+        <div>
+            <img className="object-cover" src={userblog?.url} alt=""/>
+        </div>
     );
 }

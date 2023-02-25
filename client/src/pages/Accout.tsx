@@ -46,7 +46,7 @@ export function Accout() {
                             <div className="flex mt-2 cursor-pointer">{item.tags.map((t,i) => (<p className="mr-4 text-sm sm:text-4sm bg-[#57676f] text-[#283035] px-2 py-1 rounded-xl font-bold" key={i}>{t}</p>))}</div>
                             <p className="text-[#57676f] mt-5 font-bold text-[12px]">{formatDistanceToNow(new Date((item.createdAt)), { addSuffix: true })}</p>
                         </div>
-                        <img className="object-contain sm:max-w-[250px]" src={item.url} alt={item.title} />
+                        <img className="object-contain rounded-xl sm:max-w-[250px]" src={item.url} alt={item.title} />
                     </div></Link>
                     )}
                 )}
