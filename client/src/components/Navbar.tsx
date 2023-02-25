@@ -39,7 +39,7 @@ export function Navbar ({Postbutton}:Props) {
                 <div onClick={()=>{setMenu(true)}} className={`h-[30px] w-[30px] bg-[#57676f] text-white p-2 rounded-[50%] absolute top-6 right-6 lg:h-[35px] lg:w-[35px]`}><img src="/close.svg" alt="close-icon"/></div>
                 <div className={`absolute top-20 left-4`}>
                     <Link to="/form"><li><p className="p-2 font-bold rounded-xl cursor-pointer text-[#283035] bg-[#57676f]">What's on your mind?</p></li></Link>
-                    <li><p className="p-2 font-bold text-[#57676f] text-xl">Account</p></li>
+                    <Link to={`/${context.user?.username}blogs`}><li><p className="p-2 font-bold text-[#57676f] text-xl">Account</p></li></Link>
                     <div className="bg-[#57676f] w-full h-[3px]"/>
                     <li onClick={logout}><p className="p-2 font-bold text-[#57676f] text-xl">Logout</p></li>
                 </div>

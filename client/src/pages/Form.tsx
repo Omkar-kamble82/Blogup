@@ -56,8 +56,9 @@ export function Form () {
             <div className="flex justify-center relative items-center min-h-screen w-screen bg-[#354249]">
                 {fileuploadtype === 3 && 
                     <div onClick={() => {setFileUploadType(0)}} className="inset-0 z-10 bg-black/80 absolute">
-                        <img onClick={() => {setFileUploadType(0)}} className="bg-white absolute right-0 mx-10 my-6 rounded-full p-2 h-[40px]" src="/close.svg" alt="close-icon" />
-                        <div className="my-24 mx-10 flex justify-evenly flex-wrap">
+                        <img onClick={() => {setFileUploadType(0)}} className="bg-white absolute right-0 mx-10 my-6 rounded-full p-2 h-[30px] sm:h-[40px]" src="/close.svg" alt="close-icon" />
+                        <h1 className="text-center mt-20 mb-8 text-cyan-200 font-bold text-[35px] sm:text-[60px]">Gallery</h1>
+                        <div className="mb-10 flex justify-evenly flex-wrap">
                             {imagedata.map((image) => {
                             return(
                                     <img onClick={() => {setImageurl(image.url);setFileUploadType(0)}} key={image.id} className="min-w-[200px] max-w-[270px] cursor-pointer m-2 scale-100 object-contain" src={image.url} alt="image"/>
@@ -77,7 +78,7 @@ export function Form () {
                         <label className="text-2xl mt-10 font-bold text-[#57676f]">Upload a relevent image </label>
                         <div className="">
                             <button onClick={() => {setFileUploadType(1)}} className="text-sm rounded-xl min-w-[100px] mr-2 font-bold bg-[#283035] text-[#57676f] py-2 px-2 drop-shadow-md md:px-4">File</button>
-                            <button onClick={() => {setFileUploadType(2)}} className="text-sm rounded-xl min-w-[100px] mx-2 font-bold bg-[#283035] text-[#57676f] py-2 px-2 drop-shadow-md md:px-4">URL</button>
+                            <button onClick={() => {setFileUploadType(2)}} className="text-sm rounded-xl min-w-[100px] mr-2 font-bold bg-[#283035] text-[#57676f] py-2 px-2 drop-shadow-md md:px-4">URL</button>
                             <button onClick={() => {setFileUploadType(3)}} className="text-sm rounded-xl min-w-[100px] my-3 font-bold bg-[#283035] text-[#57676f] py-2 px-2 drop-shadow-md md:px-4 sm:m-2">Choose from gallary</button>
                         </div> 
                         <div className="mb-4">

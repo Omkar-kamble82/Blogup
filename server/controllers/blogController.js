@@ -1,9 +1,14 @@
 const Blog = require('../models/blogModel')
 const mongoose = require('mongoose')
 
+const getuserBlogs = async (req, res) => {
+    const user_id = req.user._id
+    const blogs = await Blog.find({user_id}).sort({createdAt: -1})
+    res.status(200).json(blogs)
+}
+
 const getBlogs = async (req, res) => {
     const blogs = await Blog.find({}).sort({createdAt: -1})
-
     res.status(200).json(blogs)
 }
 
@@ -70,5 +75,6 @@ module.exports = {
     getBlog,
     createBlog,
     deleteBlog,
-    updateBlog
+    updateBlog,
+    getuserBlogs
 }

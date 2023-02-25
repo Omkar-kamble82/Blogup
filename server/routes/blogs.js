@@ -4,13 +4,15 @@ const {
     getBlog, 
     createBlog, 
     deleteBlog, 
-    updateBlog
+    updateBlog,
+    getuserBlogs
 } = require('../controllers/blogController')
 const requireAuth = require('../middleware/requireAuth')
 
 const router = express.Router()
 
 router.use(requireAuth)
+router.get('/:id', getuserBlogs)
 router.get('/', getBlogs)
 router.get('/:id', getBlog)
 router.post('/', createBlog)
