@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../context/AuthContext"
 import { Navbar } from "../components/Navbar";
+import { Link } from "react-router-dom";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 interface blog {
@@ -38,7 +39,7 @@ export function Accout() {
             <div className="mt-20 md:mt-32 flex justify-center items-center flex-col">
                 {Blog?.map((item:blog,i) => {
                     return(
-                    <div key={i} className="flex bg-[#283035] mx-4 rounded-xl my-4 max-w-[950px] p-4 flex-col-reverse sm:flex-row md:max-w-[850px] md:min-w-[845px] justify-between items-center">
+                        <Link key={i} to={`/${item._id}`}><div key={i} className="flex bg-[#283035] mx-4 rounded-xl my-4 max-w-[950px] p-4 flex-col-reverse sm:flex-row md:max-w-[850px] md:min-w-[845px] justify-between items-center">
                         <div className="flex flex-col justify-between">
                             <p className="text-xl sm:text-4xl py-2 text-[#57676f] font-bold">{item.title}</p>
                             <p className="text-sm sm:text-lg text-[#57676f]">{item.description.substring(0, 25)+"....."}</p>
@@ -46,7 +47,7 @@ export function Accout() {
                             <p className="text-[#57676f] mt-5 font-bold text-[12px]">{formatDistanceToNow(new Date((item.createdAt)), { addSuffix: true })}</p>
                         </div>
                         <img className="object-contain sm:max-w-[250px]" src={item.url} alt={item.title} />
-                    </div>
+                    </div></Link>
                     )}
                 )}
             </div>
