@@ -6,11 +6,6 @@ export function Register () {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const {signup, error, isLoading} = useSignup()
-
-    // const handleSubmit = async (e : ChangeEvent<HTMLInputElement>) => {
-    //     e.preventDefault()
-    //     await signup(username, password)
-    // }
     return (
         <>
             <Link to="/"><button className="h-10 z-10 fixed w-[100px] top-0 right-0 mt-3 mr-4 text-white font-bold rounded-lg bg-[#c72931]">Login</button></Link>
