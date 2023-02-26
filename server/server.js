@@ -12,13 +12,7 @@ app.use(express.json())
 
 app.use(
     cors({
-        origin: process.env.CORS_ORIGIN,
-        headers: {
-            "Access-Control-Allow-Origin": process.env.CORS_ORIGIN, 
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": GET, POST, PATCH, PUT, DELETE, OPTIONS,
-            "Access-Control-Allow-Headers":[ "Origin", "Content-Type", "X-Auth-Token"]
-        },
+        origin: process.env.CORS_ORIGIN
     })
 )
 
