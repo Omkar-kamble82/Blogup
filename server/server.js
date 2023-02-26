@@ -15,7 +15,9 @@ app.use(
         origin: process.env.CORS_ORIGIN,
         headers: {
             "Access-Control-Allow-Origin": process.env.CORS_ORIGIN, 
-            "Access-Control-Allow-Credentials": true // incorrect
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": GET, POST, PATCH, PUT, DELETE, OPTIONS,
+            "Access-Control-Allow-Headers":[ "Origin", "Content-Type", "X-Auth-Token"]
         },
     })
 )
