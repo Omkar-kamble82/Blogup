@@ -22,6 +22,10 @@ const blogSchema = new Schema({
         type: String,
         required: true
     },
+    user_name: {
+        type: String,
+        required: true
+    },
 }, { timestamps: true })
 
 module.exports = mongoose.model('Blog', blogSchema)

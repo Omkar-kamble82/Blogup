@@ -20,7 +20,8 @@ export function Form () {
 
     const submit = async () => {
         const tags = Tags.split(",")
-        const blog = {title, tags, url,description}
+        const user_name = context.user?.username
+        const blog = {title, tags, url, description, user_name}
         const response = await fetch(import.meta.env.VITE_SERVER, {
             method: 'POST',
             body: JSON.stringify(blog),
