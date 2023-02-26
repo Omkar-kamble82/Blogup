@@ -3,12 +3,11 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../context/AuthContext"
 import { Navbar } from "../components/Navbar";
-import { Navigate } from "react-router-dom";
 
 interface Blog {
     _id:string
     title:string
-    description:String
+    description:string
     tags:[String]
     url:string
     user_name:string
@@ -19,12 +18,10 @@ interface Blog {
 export function Blog () {
     let { id } = useParams();
     const navigate = useNavigate();
-    const [user,setUser] = useState(false);
     const context = useContext(UserContext)
     const[userblog,setUserblog] = useState<Blog>();
 
     const handledelete = async () => {
-
         const response = await fetch(import.meta.env.VITE_SERVER_WITHID + id, {
         method: 'DELETE',
         headers: {
@@ -34,7 +31,6 @@ export function Blog () {
         const json = await response.json()
         navigate("/home")
     }
-    
 
     useEffect(() => {
         const fetchWorkouts = async () => {
@@ -47,14 +43,12 @@ export function Blog () {
             blog.map((blog:Blog) => {
                 if(blog._id === id) {
                     setUserblog(blog)
-                    if(context.user?.username === userblog?.user_name){
-                        setUser(true)
-                    }
                 }
             })
         }
         fetchWorkouts()
     }, [])
+
     return (
         <div className="min-h-screen w-screen bg-[#354249]">
             <Navbar Postbutton = {false}/>
@@ -64,7 +58,6 @@ export function Blog () {
                 <div className="flex items-center p-1 cursor-pointer"><p className="mr-3 text-lg font-bold text-[#22282c] ">Tags: </p>{userblog?.tags.map((t,i) => (<p className="mr-2 text-sm sm:text-4sm bg-[#57676f] text-[#283035] px-2 py-1 rounded-xl font-bold" key={i}>{t}</p>))}</div>
                 {context.user?.username === userblog?.user_name ? 
                 (<div className="p-1 mt-3">
-                    <span className="mr-2 cursor-pointer text-sm sm:text-4sm bg-[#283035] text-[#57676f] px-3 py-1 rounded-lg font-bold">Edit</span>
                     <span className="mr-2 cursor-pointer text-sm sm:text-4sm bg-[#283035] text-[#57676f] px-3 py-1 rounded-lg font-bold" onClick={handledelete}>Delete</span>
                 </div>) : 
                 
