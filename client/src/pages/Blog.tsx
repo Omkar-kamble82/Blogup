@@ -43,13 +43,12 @@ export function Blog () {
             <Navbar Postbutton = {false}/>
             <div className="px-4 mt-24 sm:px-10">
                 <h1 className="font-bold leading-[45px] py-4 text-[#22282c] text-[35px] lg:text-[50px]">{userblog?.title}</h1>
-                {/* <span className="font-bold h-[10px] rounded-xl p-2 items-center bg-[#22282c] text-[#57676f]">{`Author: ${userblog?.user_name}`}</span> */}
                 <div className="flex items-center p-1 mb-1 cursor-pointer"><p className="mr-3 text-lg font-bold text-[#22282c] ">Author: </p>{<p className="mr-2 text-sm sm:text-4sm bg-[#57676f] text-[#283035] px-2 py-1 rounded-xl font-bold">{userblog?.user_name}</p>}</div>
                 <div className="flex items-center p-1 cursor-pointer"><p className="mr-3 text-lg font-bold text-[#22282c] ">Tags: </p>{userblog?.tags.map((t,i) => (<p className="mr-2 text-sm sm:text-4sm bg-[#57676f] text-[#283035] px-2 py-1 rounded-xl font-bold" key={i}>{t}</p>))}</div>
             </div>
-            <div className="px-4 sm:px-10 flex justify-center items-center">
-                <img className="flex-1/2 h-[60vh]" src={userblog?.url} alt="blog-img"/>
-                <p className="flex-1">{userblog?.description}</p>
+            <div className="px-4 my-10 sm:px-10 flex flex-col md:flex-row justify-center items-center">
+                <img className="flex-1 lg:max-w-[40vw] lg:mr-10 h-[80vh] object-fill rounded-xl" src={userblog?.url} alt="blog-img"/>
+                <p className="flex-1 mt-6 lg:mt-0 font-bold text-[#22282c] text-md text-justify lg:text-lg">{userblog?.description}</p>
             </div>
         </div>
     );
