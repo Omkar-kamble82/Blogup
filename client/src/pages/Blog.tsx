@@ -20,10 +20,15 @@ interface Blog {
 
 export function Blog () {
     let { id } = useParams();
+    let token:any
+    let tokenid
     const navigate = useNavigate();
     const context = useContext(UserContext)
     const[userblog,setUserblog] = useState<Blog>();
-    let token:any = jwt_decode(context.user.token)
+    if(context.user?.token){
+        token = jwt_decode(context.user?.token)
+        tokenid = token._id
+    }
 
     const handledelete = async () => {
         const response = await fetch(import.meta.env.VITE_SERVER_WITHID + id, {
@@ -52,7 +57,6 @@ export function Blog () {
         }
         fetchWorkouts()
     }, [])
-
     return (
         <div className="min-h-screen w-screen bg-[#354249]">
             <Navbar Postbutton = {false}/>
@@ -60,7 +64,7 @@ export function Blog () {
                 <h1 className="font-bold leading-[45px] py-4 text-[#22282c] text-[35px] lg:text-[50px]">{userblog?.title}</h1>
                 <div className="flex items-center p-1 mb-1 cursor-pointer"><p className="mr-3 text-lg font-bold text-[#22282c] ">Author: </p>{<p className="mr-2 text-sm sm:text-4sm bg-[#57676f] text-[#283035] px-2 py-1 rounded-xl font-bold">{userblog?.user_name}</p>}</div>
                 <div className="flex items-center p-1 cursor-pointer"><p className="mr-3 text-lg font-bold text-[#22282c] ">Tags: </p>{userblog?.tags.map((t,i) => (<p className="mr-2 text-sm sm:text-4sm bg-[#57676f] text-[#283035] px-2 py-1 rounded-xl font-bold" key={i}>{t}</p>))}</div>
-                {token._id === userblog?.user_id ? 
+                {tokenid === userblog?.user_id ? 
                 (<div className="p-1 mt-3">
                     <span className="mr-2 cursor-pointer text-sm sm:text-4sm bg-[#283035] text-[#57676f] px-3 py-1 rounded-lg font-bold" onClick={handledelete}>Delete</span>
                 </div>) : 
