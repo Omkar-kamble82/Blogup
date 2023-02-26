@@ -12,7 +12,15 @@ app.use(express.json())
 
 app.use(
     cors({
-        origin: process.env.CORS_ORIGIN
+        origin: (origin, callback) => {
+            if (process.env.CORS_ORIGIN.indexOf(origin) !== -1 || !origin) {
+                callback(null, true)
+            } else {
+                callback(new Error('Not allowed by CORS'))
+            }
+        },
+        credentials: true,
+        optionsSuccessStatus: 200
     })
 )
 
