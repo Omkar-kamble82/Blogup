@@ -9,11 +9,18 @@ const userRoutes = require('./routes/user')
 const app = express()
 
 app.use(express.json())
+const allowedOrigins = [
+    process.env.CORS_ORIGIN,
+    process.env.VITE_USER_SIGNUP,
+    process.env.VITE_USER_LOGIN,
+    process.env.VITE_SERVER_ID,
+    process.env.CORS_SEND,
+]
 
 app.use(
     cors({
         origin: (origin, callback) => {
-            if (process.env.CORS_ORIGIN.indexOf(origin) !== -1 || !origin) {
+            if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
                 callback(null, true)
             } else {
                 callback(new Error('Not allowed by CORS'))
