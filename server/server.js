@@ -15,6 +15,7 @@ const allowedOrigins = [
     process.env.VITE_USER_LOGIN,
     process.env.VITE_SERVER_ID,
     process.env.CORS_SEND,
+    process.env.FRONTEND,
 ]
 
 app.use(
